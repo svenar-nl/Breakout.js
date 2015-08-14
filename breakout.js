@@ -11,7 +11,7 @@ var x = canvas.width/2; // ball X
 var y = canvas.height/2; // ball Y
 var dx = 2; // Direction X
 var dy = 2; // Direction Y
-var speed = 2; // Speed (Unused for now)
+var speed = 8; // Speed oft he game (Lower is faster)
 var mouseX = 0; // Mouse X
 var mouseY = 0; // Mouse Y
 var randomInt = 0; // Random Integer
@@ -43,7 +43,7 @@ function initbricks() {  // Create the bricks but not render them yet
 	for (i=0; i < NROWS; i++) { // Loop NROWS
 		bricks[i] = new Array(NCOLS); // Set NCOLS in bricks Array
 		for (j=0; j < NCOLS; j++) {  // Loop NCOLS
-			bricks[i][j] = 1; // set bricks[NROWS][NCOLS] to 1 (value 0/1 is dead or alive)
+			bricks[i][j] = 1; // set bricks[NROWS][NCOLS] to 1 (value 0/1 is dead/alive)
 		}
 	}
 	bricksLeft = NROWS*NCOLS; // Variable how many bricks are left
@@ -85,11 +85,11 @@ function draw() { // Main loop
 		y = canvas.height/2; // Set ball on Y center
 		initbricks(); // Setup the bricks
 	}
-	if (powerupT == 0){ // Timer for howlong a powerup lasts
+	if (powerupT == 0){ // Timer for how long a powerup lasts
 		paddleW = 150; // Set paddle Width to default
 		ghostBall = false; // No more ghost ball
-	}else{ // powerupT > 0
-		powerupT -=1; // powerupT - 1
+	}else{ // powerupTimer > 0
+		powerupT -=1; // powerupTimer - 1
 	}
 
 	moveBall(); // Move the ball
@@ -207,7 +207,10 @@ function showPowerups(){ // Render powerups
 					paddleW = 75; // Set paddleW 75px
 					powerupT = 1000; // Duration
 				}else if (pwrp.t == "fastBall"){ // if type is fastBall
-					ballSpeed += 2; // add 2 to MAXIMUM ballSpeed
+					speed -= 1; // Substract 1 from the speed
+					if (speed < 1) { // If speed is lower than 1 (0, -1, -2)
+						speed = 1; // Set the speed to 1
+					}
 				}else if (pwrp.t == "ghostBall"){ // if type is Ghostball
 					ghostBall = true; // set ghostBall true
 					powerupT = 200; // Duration
@@ -254,4 +257,4 @@ function emitParticles() { // Render the particles
 setInterval(function(){ // Game loop
 	draw(); // Run main function
 	$("#currScore").text("Score: " + score); // Set score
-}, 5); // Delay 5 = default
+}, speed); // Delay 8 = default
