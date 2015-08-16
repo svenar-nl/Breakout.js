@@ -1,5 +1,6 @@
 # Breakout.js
 A breakout game using the HTML5 canvas element and JavaScript
+
 Note: Requires JQuery http://jquery.com/
 
 Created by: Sven Arends
