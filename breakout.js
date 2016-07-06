@@ -1,6 +1,5 @@
 /*------------------------------------------------*/
 //          Created by: Sven Arends               //
-//     For his website: http://trippple.co.nf     //
 /*------------------------------------------------*/
 
 $("#canvas").prop('width',800); // Set game window width
